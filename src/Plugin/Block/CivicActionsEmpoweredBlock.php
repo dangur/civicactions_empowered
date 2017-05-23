@@ -23,6 +23,7 @@ class CivicActionsEmpoweredBlock extends BlockBase implements BlockPluginInterfa
     $default_config = \Drupal::config('civicactions_empowered.settings');
     return array(
       'civic_actions_empowered_block' => $default_config->get('empowered.civicactions'),
+      'label_display' => FALSE,
     );
   }
 
@@ -33,15 +34,13 @@ class CivicActionsEmpoweredBlock extends BlockBase implements BlockPluginInterfa
     $form = parent::blockForm($form, $form_state);
 
     $config = $this->getConfiguration();
-    $default_config = \Drupal::config('civicactions_empowered.settings');
-
 
     $form['display_text'] = array(
       '#type' => 'textfield',
       '#format' => 'restricted_html',
       '#title' => $this->t('CivicActions Empowered block text'),
       '#description' => $this->t('Modify the text as you wish'),
-      '#default_value' => isset($config['display_text']) ? $config['display_text'] : $default_config,
+      '#default_value' => isset($config['display_text']) ? $config['display_text'] : '<a href="https://civicactions.com">CivicActions</a> Empowered',
     );
     return $form;
   }
@@ -50,9 +49,7 @@ class CivicActionsEmpoweredBlock extends BlockBase implements BlockPluginInterfa
    * {@inheritdoc}
    */
   public function blockValidate($form, FormStateInterface $form_state) {
-    if (isset($this->configuration['display_text'])) {
-      drupal_set_message("CivicActions Empowered block value set to \"{$this->configuration['display_text']}\"");
-    }
+    drupal_set_message("CivicActions Empowered block value set to \"{$this->configuration['display_text']}\"");
   }
 
   /**
