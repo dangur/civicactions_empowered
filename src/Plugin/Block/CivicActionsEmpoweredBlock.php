@@ -20,9 +20,7 @@ class CivicActionsEmpoweredBlock extends BlockBase implements BlockPluginInterfa
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    $default_config = \Drupal::config('civicactions_empowered.settings');
     return array(
-      'civic_actions_empowered_block' => $default_config->get('empowered.civicactions'),
       'label_display' => FALSE,
     );
   }
@@ -48,17 +46,11 @@ class CivicActionsEmpoweredBlock extends BlockBase implements BlockPluginInterfa
   /**
    * {@inheritdoc}
    */
-  public function blockValidate($form, FormStateInterface $form_state) {
-    drupal_set_message("CivicActions Empowered block value set to \"{$this->configuration['display_text']}\"");
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function blockSubmit($form, FormStateInterface $form_state) {
     parent::blockSubmit($form, $form_state);
     $values = $form_state->getValues();
     $this->configuration['display_text'] = $values['display_text'];
+    drupal_set_message("CivicActions Empowered block value set to \"{$this->configuration['display_text']}\"");
   }
 
   /**
